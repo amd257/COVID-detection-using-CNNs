@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>COVID-19 Detection Webapp</title>
+    <!-- Bootstraps Java Scipts Links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <!--Link to jQuery Script for running JSON -->
+     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+
+    <style>
+
+        .jumbotron{
+            widows: 350px;
+            height: 220px;
+            justify-content: center;
+            color: white;
+            background-color: blue;
+        }
+
+        .row{
+            justify-content: center;
+        }
+
+
+    </style>
+
+<body>
+    <div class="jumbotron">
+        <h1 class="text-center"> COVID-19 Detection Using CNN Models</h1>
+    </div>
+    <br>
+    <br>
+
+        <input id="image-selector" type="file"> 
+        <button id="predict-button">Predict</button>
+        <p>PREDICTION: <span id="result">...</span></p>
+        <p>PROBABILITY: <span id="probability">...</span></p>
+        <img id="selected-image" width="400" src=""/>
+    
+</body>
+
+<script>
+    let base64Image;
+    $("#image-selector").change(function() {
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            let dataURL = reader.result;
+            $('#selected-image').attr("src", dataURL);
+            base64Image = dataURL.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+            console.log(base64Image);
+        }
+        reader.readAsDataURL($("#image-selector")[0].files[0]);
+        $("#result").text("");
+        $("#probability").text("");
+
+    });
+
+    $("#predict-button").click(function(){
+            let message = {
+            image: base64Image
+        }
+        console.log(message);
+        $.post("http://127.0.0.1:5000/predict", JSON.stringify(message), function(response){
+            $("#result").text(response.prediction.result);
+            $("#probability").text(response.prediction.accuracy.toFixed(2));
+            console.log(response);
+        });
+    });
+    
+</script>
+
+</html>
