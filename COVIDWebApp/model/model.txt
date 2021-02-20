@@ -1,0 +1,1 @@
+this folder contains the ml models for covid detection
