@@ -1,1 +1,2 @@
 This folder contains the different Keras models saved
+Actually it doesnt contain the saved models, since github doesnt allow files larger than 25mb, smh
