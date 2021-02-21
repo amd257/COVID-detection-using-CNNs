@@ -1,1 +1,2 @@
 this folder contains the ml models for covid detection
+actually its empty because github doesnt allow files larger than 25mb, smh
