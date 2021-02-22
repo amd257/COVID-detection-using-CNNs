@@ -3,13 +3,42 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>COVID-19 DETECTION WEBAPP</title>
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </head>
+
+	<style>
+
+        .jumbotron{
+            background-image: url("https://resources.appen.com/wp-content/uploads/2019/10/iStock-1181216327-750x422-1.jpg.webp");
+            background-size: cover;
+            widows: 500px;
+            height: 250px;
+            justify-content: center;
+            color: white;
+        }
+
+
+
+	</style>
 <body>
-	<h1>Upload the image<h1>
+	<div class="jumbotron jumbotron-fluid">
+		<div class="container">
+			<h1 class="display-4">COVID-19 Detection</h1>
+			<p class="lead">This is a web application to detect COVID-19 using Convolutional Neural Networks.</p>
+		</div>
+	</div>
+	
 	<form action= '/predict' method=post enctype=multipart/form-data>
-      <input type=file name="image" id="image" >
-      <button type=submit value=Upload> Submit </button>
+		<input type=file name="imagefile" id="imagefile" > <br> <br>
+		<button class="btn btn-dark" type=submit id="predict_button"> Predict </button> <!--make sure button type is submit-->
     </form>
 </body>
 </html>
