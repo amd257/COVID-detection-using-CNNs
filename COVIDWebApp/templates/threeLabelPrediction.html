@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content1 %}
+
+<div class="container pt-3" id ="form-data" style="background-color:#BBC1D3;" ><br><br><br>
+	<form action = "/threeLabelPrediction" method=post enctype=multipart/form-data>
+		<input type="file" name="imagefile" id="imagefile" accept="image/*" onchange="loadFile(event)"> <br> <br>
+		<img id="output" width="400" /><br><br>
+		<button class="btn btn-dark" type=submit id="predict_button"> Predict </button><br><br> <!--make sure button type is submit-->
+		
+    </form>
+</div>
+<div class="container pt-3" id= "predictions" style="background-color:#BBC1D3;">
+	<h4>Predictions</h4><br><br>
+	<h5>COVID: <strong>{{CovidPred}} %</strong></h5><br>
+	<h5>Normal: <strong>{{NormalPred}} %</strong></h5><br>
+	<h5>Pneumonia: <strong>{{PneumoniaPred}} %</strong></h5><br><br>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    
+  };
+</script>
+
+{% endblock %}
