@@ -17,13 +17,47 @@
 	<style>
 
         .jumbotron{
-            background-image: url("https://resources.appen.com/wp-content/uploads/2019/10/iStock-1181216327-750x422-1.jpg.webp");
+            background-image: url("https://www.hamilton-medical.com/.imaging/stk/hamilton-theme/text-backgroundimage-tablet/dam/Images/A-Pictures/Home/covid-19-header-2000x769.jpg/jcr:content/covid-19-header-2000x769.jpg.2020-03-20-09-55-30.jpg");
             background-size: cover;
             widows: 500px;
             height: 250px;
             justify-content: center;
             color: white;
+            padding: none;
         }
+
+        .container{
+
+        	justify-content: center;
+
+
+        }
+
+       #nav{
+			background-color:black;
+			color:white;
+			text-align: center;
+			font-size:25px;
+			padding: 20px;
+
+
+		}
+
+		
+		a:link {
+			color: white;
+			} /*styling for <a> tag when its not been visited*/
+
+		
+		a:visited {
+			color: white;
+
+			} /*styling for <a> tag when its been visited */
+
+		li{ 
+			display: inline;
+			padding-left: 50px;
+		} 
 
 
 
@@ -31,14 +65,36 @@
 <body>
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
-			<h1 class="display-4">COVID-19 Detection</h1>
-			<p class="lead">This is a web application to detect COVID-19 using Convolutional Neural Networks.</p>
+			<h1>COVID-19 Detection</h1>
+			<p>This is a web application to detect COVID-19 using Convolutional Neural Networks.</p>
 		</div>
 	</div>
+
+	<div id="nav">
+			<ul>
+				<h4><li><a href="#">COVID and Non-COVID</a></li>
+					<li><a href="#">COVID, Normal and Pneumonia</a></li></h4>
+			</ul>
+	</div>
 	
-	<form action= '/predict' method=post enctype=multipart/form-data>
+	<div class="container" id ="form-data"><br><br><br>
+	<form action = "/predict" method=post enctype=multipart/form-data>
 		<input type=file name="imagefile" id="imagefile" > <br> <br>
 		<button class="btn btn-dark" type=submit id="predict_button"> Predict </button> <!--make sure button type is submit-->
     </form>
+    <img id="selected-image" width="400" src=""/>
+	</div>
+		
+	<!--<div class="container">
+		{% for message in get_flashed_messages() %}
+		<div class="message_flash">{{ message }}</div>
+		{% endfor %}
+	</div> -->
+	<div id="content">{% block content %}{% endblock %}</div>
+
+    <script>
+
+
+    </script>
 </body>
 </html>
