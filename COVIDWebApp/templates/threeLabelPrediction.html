@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+		
+
+<div class="container pt-3" id ="form-data" style="background-color:#BBC1D3;" ><br><br><br>
+	<form action = "/threeLabelPrediction" method=post enctype=multipart/form-data>
+		
+		<!--the following code overlays a styled input button to act as the file input for uploading the image file -->
+		<input type="button" class="btn btn-dark" value="Choose Image" onclick="document.getElementById('imagefile').click();" /> 
+		<input type="file" name="imagefile" id="imagefile"  style="display:none;" accept="image/*" onchange="loadFile(event)"> <br> <br>
+
+		{% for message in get_flashed_messages() %}
+			<div class="alert alert-dark" role="alert">{{message}}</div>
+      	{% endfor %}
+		<br>
+		
+		<img id="output" src = "{{imgsrc}}" width="400" /><br><br>
+		<button class="btn btn-dark" type=submit id="predict_button"> Make Prediction </button><br><br> <!--make sure button type is submit-->
+		<!--src = "{{imgsrc}}"-->
+    </form>
+</div>
+<div class="container pt-3" id= "predictions" style="background-color:#BBC1D3;">
+	<h4>Predictions</h4><br><br>
+	<h5>COVID: <strong>{{CovidPred}} %
+	<div class="progress" style="height: 18px; width: 70%;">
+		<div class="progress-bar  bg-danger " role="progressbar" style="width: {{CovidPred}}%" ></div>
+	</div>
+	</strong></h5>
+	<br>
+
+	<h5>Normal: <strong>{{NormalPred}} %
+	<div class="progress" style="height: 18px; width: 70%;">
+		<div class="progress-bar  bg-success " role="progressbar" style="width: {{NormalPred}}%" ></div>
+	</div>
+	</strong></h5>
+	<br>
+
+	<h5>Pneumonia: <strong>{{PneumoniaPred}} %
+	<div class="progress" style="height: 18px; width: 70%;" >
+		<div class="progress-bar  bg-warning " role="progressbar" style="width: {{PneumoniaPred}}%" ></div>
+	</div>
+	</strong></h5>
+	<br>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    
+  };
+</script>
+
+{% endblock %}
