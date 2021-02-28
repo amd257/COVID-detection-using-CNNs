@@ -31,13 +31,28 @@
     .navbar {
 
     	background-color:#000;
+
 		margin-bottom:0;
 	}
 
 	.nav-item{
 		color: #fff;
+
 	}
 
+
+	body{
+		background-color:#D5D4D2;
+	}
+
+	footer {
+   		
+   		padding:20px;
+   		width: 100%;
+   		background-color: black;
+   		color: white;
+   		text-align: center;
+	}
 
 </style>
 <body>
@@ -50,32 +65,39 @@
 	
 	<!--Start of navigation bar -->
     	<nav class="navbar navbar-expand-md ">
-        	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        	<button type="button" class="navbar-toggler ml-auto " data-toggle="collapse" data-target="#navbarCollapse">
             	<span class="navbar-toggler-icon">
             		<i class="fa fa-navicon" style="color:#fff; font-size:28px;"></i>
             	</span>
         	</button> <!--Button for responsive navbar toggle -->
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav">
-                <a href="#" class="nav-item nav-link active"><h5>COVID vs Non-COVID Detection</h5></a>
-                <a href="#" class="nav-item nav-link active"><h5>COVID vs Normal vs Pneumonia Detection</h5></a>
+            <div class="navbar-nav mx-auto">
+            	<a href="{{ url_for('homepage') }}" class="nav-item nav-link active" style="padding-left: 80px; padding-right:80px;"><h5>Homepage</h5></a>
+                <a href="{{ url_for('binaryPrediction') }}" class="nav-item nav-link active" style="padding-right: 80px;"><h5>COVID and Non-COVID Detection</h5></a>
+                <a href="{{ url_for('threeLabelPrediction') }}" class="nav-item nav-link active" style="padding-right: 80px;"><h5>COVID, Normal and Pneumonia Detection</h5></a>
             </div>
         </div>
-    	</nav>
+    	</nav> <!--Navbar aligning -> ml-auto to the right ->mx-auto to the center -->
     <!--End of navigation bar-->
 
-    <div class="container-fluid pt-3" style="background-color:#D5D4D2;" id="content">
+    <div class="container-fluid pt-3" id="content"><br><br>
 
             {% block content %}{% endblock %}
 
     	<!-- pt-3 ==> top padding of 16 pixels-->
-    	<!-- jinja2 templating with the  blocks-->
+    	<!-- jinja2 templating with the blocks-->
     	
 
     </div>
+    <br><br>
 
     {% block scripts %}{% endblock %}
+
+
+    <footer id="main-footer">
+		<p>Copyright &copy; 2021, Brunel University London</p>
+	</footer>
 
 </body>
 </html>
