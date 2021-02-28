@@ -4,11 +4,17 @@
 
 		
 
-<div class="container pt-3" id ="form-data" style="background-color:#BBC1D3;" ><br><br><br>
+<div class="container pt-3" id ="form-data" style="background-color:#BBC1D3; padding-bottom: 20px;" ><br>
+	
+	<h1 style="text-align: center;">COVID, Normal and Pneumonia Detection</h1><br><br>
+
+	<div class="alert alert-dark "> <strong>Instructions:</strong> To use the Deep Learning Model for X-ray diagnosis, please upload the chest X-ray image of the patient (in .png, .jpg or .jpeg format) by clicking on the 'Choose X-ray Image' button. Then, please click on the 'Make Prediction' button to get the prediction results.</div><br><br>
+
+
 	<form action = "/threeLabelPrediction" method=post enctype=multipart/form-data>
 		
 		<!--the following code overlays a styled input button to act as the file input for uploading the image file -->
-		<input type="button" class="btn btn-dark" value="Choose Image" onclick="document.getElementById('imagefile').click();" /> 
+		<input type="button" class="btn btn-dark" value="Choose X-ray Image" onclick="document.getElementById('imagefile').click();" style="min-width: 200px;"  /> 
 		<input type="file" name="imagefile" id="imagefile"  style="display:none;" accept="image/*" onchange="loadFile(event)"> <br> <br>
 
 		{% for message in get_flashed_messages() %}
@@ -17,17 +23,17 @@
 		<br>
 		
 		<img id="output" src = "{{imgsrc}}" width="400" /><br><br>
-		<button class="btn btn-dark" type=submit id="predict_button"> Make Prediction </button><br><br> <!--make sure button type is submit-->
-		<!--src = "{{imgsrc}}"-->
+		<button class="btn btn-dark" type=submit id="predict_button" style="min-width: 200px;" > Make Prediction </button><br><br> <!--make sure button type is submit-->
+		
     </form>
 </div>
 <div class="container pt-3" id= "predictions" style="background-color:#BBC1D3;">
-	<h4>Predictions</h4><br><br>
-	<h5>COVID: <strong>{{CovidPred}} %
+	<h4>Predictions</h4><br>
+	<h5>COVID: <strong id="covidVal">{{CovidPred}}</strong> %
 	<div class="progress" style="height: 18px; width: 70%;">
 		<div class="progress-bar  bg-danger " role="progressbar" style="width: {{CovidPred}}%" ></div>
 	</div>
-	</strong></h5>
+	</h5>
 	<br>
 
 	<h5>Normal: <strong>{{NormalPred}} %
@@ -42,7 +48,7 @@
 		<div class="progress-bar  bg-warning " role="progressbar" style="width: {{PneumoniaPred}}%" ></div>
 	</div>
 	</strong></h5>
-	<br>
+	<br><br>
 </div>
 
 
@@ -55,6 +61,7 @@
     output.src = URL.createObjectURL(event.target.files[0]);
     
   };
+
 </script>
 
 {% endblock %}
