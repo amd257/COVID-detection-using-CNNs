@@ -9,7 +9,8 @@ from keras.preprocessing import image
 from keras.preprocessing.image import ImageDataGenerator, img_to_array 
 import numpy as np
 
-UPLOAD_FOLDER = 'static//images//'
+
+UPLOAD_FOLDER = 'static//upload//'
 ALLOWED_EXTENSIONS = { 'png', 'jpg', 'jpeg'}
 SECRET_KEY = 'C?\xe7s\xb0\xe3\n\x87\\\xd8\xa3\xee\xdf\x13\x06\\\xee\x18\x03\xf2\xc0\x95x\xdd'
 
@@ -58,10 +59,12 @@ def image_preprocessing(new_image):
 	return preprocessed_img
 
 
-
-@app.route("/" , methods =["GET" , "POST"])
+#Function for rendering the home page of the application
+@app.route("/" , methods =["GET", "POST"])
 def homepage():
-	return(render_template("homepage.html"))
+	binary_imgsrc = "static//images//UserInstructionBinaryDiagram.png" #Image source for the User-Instruction Diagram for Binary Classification
+	multiclass_imgsrc = "static//images//UserInstructionMultiClassDiagram.png" #Image source for the User-Instruction Diagram for Multi-Class Classification
+	return(render_template("homepage.html", binary_imgsrc = binary_imgsrc, multiclass_imgsrc = multiclass_imgsrc ))
 
 
 #Function for making the binary classification between COVID and Non-COVID images
@@ -81,7 +84,7 @@ def binaryClassification():
 		#Checking if the post request has the file part
 		if 'imagefile' not in request.files:
 			app.logger.info('No image file selected')
-			flash('Please upload image file before clicking the predict button')
+			flash('Please upload image file before clicking the Make Prediction button.')
 			return render_template('binaryClassification.html')
 	    
 		imagefile = request.files["imagefile"]
@@ -89,7 +92,7 @@ def binaryClassification():
 		# If user does not select a file, browser can also submit an empty file without filename
 		if imagefile.filename == "":
 			app.logger.info('No image file selected')
-			flash('No image file selected. Please select an image file before clicking predict')
+			flash('No image file selected. Please select an image file before clicking the Make Prediction button.')
 			return render_template('binaryClassification.html')
 		
 		if imagefile and allowed_filename(imagefile.filename):
@@ -121,7 +124,7 @@ def binaryClassification():
 			
 
 		else:
-			flash('The file selected was not in the correct format. Please upload X-ray image in .png, .jpg or .jpeg format')
+			flash('The file selected was not in the correct format. Please upload X-ray image in .png, .jpg or .jpeg format.')
 
 	
 
@@ -151,7 +154,7 @@ def multiClassClassification():
 		#Checking if the post request has the file part
 		if 'imagefile' not in request.files:
 			app.logger.info('No image file selected')
-			flash('Please upload image file before clicking the predict button')
+			flash('Please upload image file before clicking the Make Prediction button.')
 			return render_template('multiClassClassification.html')
 	    
 		imagefile = request.files["imagefile"]
@@ -159,7 +162,7 @@ def multiClassClassification():
 		# If user does not select a file, browser can also submit an empty file without filename
 		if imagefile.filename == "":
 			app.logger.info('No image file selected')
-			flash('No image file selected. Please select an image file before clicking predict')
+			flash('No image file selected. Please select an image file before clicking the Make Prediction button.')
 			return render_template('multiClassClassification.html')
 		
 		if imagefile and allowed_filename(imagefile.filename):
@@ -179,7 +182,7 @@ def multiClassClassification():
 			app.logger.info('Prediction Results for each class:'+ str(prediction))
 
 		else:
-			flash('The file selected was not in the correct format. Please upload X-ray image in png, jpg or jpeg format')
+			flash('The file selected was not in the correct format. Please upload X-ray image in png, jpg or jpeg format.')
 
 	
 	#Checking if prediction results for all the classes have been calculated. 
