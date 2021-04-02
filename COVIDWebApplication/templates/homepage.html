@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+		
+
+<div class="container pt-3" id ="form-data" style="background-color:#BBC1D3; padding-bottom: 20px;" ><br>
+	
+	<h1 style="text-align: center;">Welcome to the COVID-19 X-ray Diagnosis Project</h1><br><br>
+
+	<p style="text-align:justify;">This project is developed by a student at Brunel University London to create a Web Application that uses Deep Learning models for diagnosing COVID-19 in patients. Different Deep Learning models were trained and evaluated on a dataset containing chest X-rays of COVID-19, Non-COVID Viral Pneumonia, other Non-COVID Lung Infections such as Bacterial Pneumonia, and Normal patients. The best performing Deep Learning models have been incorporated into this web application to make predictions.</p>
+  <p style="text-align:justify;">Two types of classification approaches can be used in this application: COVID vs Non-COVID Detection and COVID Multi-Class Detection. For COVID vs Non-COVID Detection, all the Non-COVID chest X-rays are grouped together, so the model detects whether the chest X-ray uploaded is COVID-19 positive or negative. The most optimal Deep Learning model used for this approach is Xception, which has a 99.26% accuracy on average on unseen data. The diagram below shows instructions on how to use the Deep Learning model for making predictions on the <strong><u><a href="{{ url_for('binaryClassification') }}">COVID vs Non-COVID Detection</a></u></strong> page.</p><br>
+  <div class="container-fluid" style="display: flex; justify-content: center;">
+  <img src="{{binary_imgsrc}}" class="responsive" width="100%" height="100%"></a>
+  </div>
+  <br><br>
+
+
+
+	<p style="text-align:justify;">For the COVID Multi-Class Detection approach, all the different categories of chest X-rays are individually classified. So, the model will detect whether the X-ray uploaded shows signs of COVID-19, Non-COVID Viral Pneumonia, other Non-COVID Lung Infections or is the X-ray of a Normal patient. The Xception model is the best performing model for this classification approach as well, having a 93.15% accuracy on average on unseen data. The diagram below shows instructions on how to use the Deep Learning model for making predictions on the <strong><u><a href="{{ url_for('multiClassClassification') }}">COVID Multi-Class Detection</a></u></strong> page.</p><br>
+  <div class="container-fluid" style="display: flex; justify-content: center;">
+  <img src="{{multiclass_imgsrc}}" class="responsive" width="100%" height="100%"></a>
+  </div>
+
+	<br><br><br><br>
+</div>
+
+{% endblock %}

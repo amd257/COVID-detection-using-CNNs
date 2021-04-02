@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+		
+
+<div class="container pt-3" id ="form-data" style="background-color:#BBC1D3; padding-bottom: 20px;" ><br>
+	
+	<h1 style="text-align: center;">COVID Multi-Class Detection</h1><br><br>
+
+	<div class="alert alert-dark "> <strong>Instructions: </strong> This Deep Learning Model will detect whether the X-ray uploaded shows signs of COVID-19, Non-COVID Viral Pneumonia, other Non-COVID Lung Infections or is of a Normal patient. To use the X-ray diagnosis model, please upload the patient's chest X-ray image (in .png, .jpg or .jpeg format) by clicking on the 'Choose X-ray Image' button. Then, please click on the 'Make Prediction' button to get the prediction results.</div><br>
+
+
+	<form action = "/multiClassClassification" method=post enctype=multipart/form-data>
+		
+		<!--The following code overlays a styled input button to act as the file input for uploading the image file -->
+		<input type="button" class="btn btn-dark" value="Choose X-ray Image" onclick="document.getElementById('imagefile').click();" style="min-width: 200px;"  /> 
+		<input type="file" name="imagefile" id="imagefile"  style="display:none;" accept="image/*" onchange="loadFile(event)"> <br> <br>
+
+		{% for message in get_flashed_messages() %}
+			<div class="alert alert-dark" role="alert">{{message}}</div>
+      	{% endfor %}
+		<br>
+		
+		<img id="output" src = "{{imgsrc}}" width="400" /><br><br>
+		<button class="btn btn-dark" type=submit id="predict_button" style="min-width: 200px;" > Make Prediction </button><br><br> 
+		
+    </form>
+</div>
+<div class="container pt-3" id= "predictions" style="background-color:#BBC1D3;">
+	<div class="alert alert-dark "><strong>Note: </strong> For the prediction results, the category with the highest percentage represents the diagnosis made by the Deep Learning Model.</div>
+	<br>
+	<h4>Results</h4><br>
+	
+	<h5>COVID: <strong id="covidVal">{{CovidPred}}</strong>%
+	<div class="progress" style="height: 18px; width: 70%;">
+		<div class="progress-bar  bg-danger " role="progressbar" style="width: {{CovidPred}}%" ></div>
+	</div>
+	</h5>
+	<br>
+
+	<h5>Viral Pneumonia: <strong>{{ViralPneumoniaPred}}</strong>%
+	<div class="progress" style="height: 18px; width: 70%;" >
+		<div class="progress-bar  bg-warning " role="progressbar" style="width: {{ViralPneumoniaPred}}%" ></div>
+	</div>
+	</strong></h5>
+	<br>
+
+	<h5>Non-COVID Lung Infection: <strong>{{LungInfectionPred}}</strong>%
+	<div class="progress" style="height: 18px; width: 70%;" >
+		<div class="progress-bar" role="progressbar" style="width: {{LungInfectionPred}}%" ></div>
+	</div>
+	</strong></h5>
+	<br>
+
+	<h5>Normal: <strong>{{NormalPred}}</strong>%
+	<div class="progress" style="height: 18px; width: 70%;">
+		<div class="progress-bar  bg-success " role="progressbar" style="width: {{NormalPred}}%" ></div>
+	</div>
+	</strong></h5>
+	<br><br>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    
+  };
+
+</script>
+
+{% endblock %}
