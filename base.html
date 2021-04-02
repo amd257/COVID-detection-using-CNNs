@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>COVID-19 Detection Webapp</title>
+
+	<!-- Linking the Bootstrap 4 CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!--Linking the jQuery and Bootstrap 4 JavaScript -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+	
+  	.jumbotron {
+      	margin-bottom:0;
+      	 background-image: url("https://www.hamilton-medical.com/.imaging/stk/hamilton-theme/text-backgroundimage-tablet/dam/Images/A-Pictures/Home/covid-19-header-2000x769.jpg/jcr:content/covid-19-header-2000x769.jpg.2020-03-20-09-55-30.jpg");
+      	 background-size: cover;
+      	 justify-content: center;
+      	 color: #fff;
+      	 padding: none;
+    } 
+
+    .navbar {
+
+    	background-color:#000;
+
+		margin-bottom:0;
+	}
+
+	.nav-item{
+		color: #fff;
+
+	}
+
+
+	body{
+		background-color:#D5D4D2;
+	}
+
+	footer {
+   		
+   		padding:20px;
+   		width: 100%;
+   		background-color: black;
+   		color: white;
+   		text-align: center;
+	}
+
+</style>
+<body>
+	
+	<div class="jumbotron jumbotron-fluid"> 
+		<div class="container">
+			<h1>Web Application for COVID-19 X-ray Diagnosis using Deep Learning</h1>
+		</div>
+	</div>
+	
+	<!--Start of navigation bar -->
+    	<nav class="navbar navbar-expand-md ">
+        	<button type="button" class="navbar-toggler ml-auto " data-toggle="collapse" data-target="#navbarCollapse">
+            	<span class="navbar-toggler-icon">
+            		<i class="fa fa-navicon" style="color:#fff; font-size:28px;"></i>
+            	</span>
+        	</button> <!--Button for responsive navbar toggle -->
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav mx-auto">
+            	<a href="{{ url_for('homepage') }}" class="nav-item nav-link active" style="padding-left: 80px; padding-right:80px;"><h5>Homepage</h5></a>
+                <a href="{{ url_for('binaryClassification') }}" class="nav-item nav-link active" style="padding-right: 80px;"><h5>COVID and Non-COVID Detection</h5></a>
+                <a href="{{ url_for('multiClassClassification') }}" class="nav-item nav-link active" style="padding-right: 80px;"><h5>COVID Multi-Class Detection</h5></a>
+            </div>
+        </div>
+    	</nav> <!--Navbar aligning -> ml-auto to the right ->mx-auto to the center -->
+    <!--End of navigation bar-->
+
+    <div class="container-fluid pt-3" id="content"><br><br>
+
+            {% block content %}{% endblock %}
+
+    	<!-- pt-3 ==> top padding of 16 pixels-->
+    	<!-- jinja2 templating with the blocks-->
+    	
+
+    </div>
+    <br><br>
+
+    {% block scripts %}{% endblock %}
+
+
+    <footer id="main-footer">
+		<p>Copyright &copy; 2021, Brunel University London</p>
+	</footer>
+
+</body>
+</html>
